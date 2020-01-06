@@ -12,7 +12,9 @@
     "version": ""
   },
   "dependencies": {
+    "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
+    "gulp-decompress": "^3.0.0",
     "hexo": "^4.0.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
