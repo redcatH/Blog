@@ -1,8 +1,8 @@
-// var exec = require('child_process').exec;
+var exec = require('child_process').exec;
 var gulp = require('gulp');
 var fs = require('fs');
-// var git = require('gulp-git');
-// var runSequence = require('run-sequence');
+var git = require('gulp-git');
+var runSequence = require('run-sequence');
 var https = require('https');
 var decompress = require('gulp-decompress');
 
@@ -13,47 +13,55 @@ gulp.task('default', function () {
 var themeRepoName = 'hexo-theme-polarbear';
 var themeName = 'polarbear';
 
-function getFileHttps(hostname, path, dist, decompressDist) {
-    console.log(path);
+function getFileHttps(hostname, filepath, dist, decompressDist) {
+    console.log(filepath);
     var options = {
         hostname: hostname,
         port: 443,
-        path: path,
-        method: 'get'
+        path: filepath,
+        method: 'GET'
     }
-    var file = fs.createReadStream(dist);
-    try {
-        var req = https.request(options, (res) => {
-            console.log("statusCode: ", res.statusCode);
-            console.log("headers: ", res.headers);
-            res.on('data', (d) => {
-                file.write(d);
-            }).on('end', () => {
-                if (decompressDist) {
-                    gulp.src(dist)
-                        .pipe(decompress({ strip: 1 }))
-                        .pipe(gulp.dest(decompressDist));
-                }
-            }).on.on('error',(error)=>{
-                console.log('error'+error);
-            })
-        })
-        req.end();
-    } catch (error) {
-        console.log(error);
-    }
+    var file = fs.createWriteStream(dist);
+    var req = https.request(options, (res) => {
 
+        console.log("statusCode: ", res.statusCode);
+        console.log("headers: ", res.headers);
+        res.on('data', (d) => {
+            file.write(d);
+        }).on('end', () => {console.log('解压0');
+            if (decompressDist) {
+                console.log('解压');
+                gulp.src(dist)
+                    .pipe(decompress({ strip: 1 }))
+                    .pipe(gulp.dest(decompressDist));
+            }
+        });
+    })
+
+    req.on('error', (e) => {
+        console.error(e);
+    });
+    req.end();
 }
 
 gulp.task('changetheme', (cb) => {
     getFileHttps('codeload.github.com',
         '/redcatH/' + themeRepoName + '/zip/master',
         './' + themeName + '.zip',
-        './' + themeName);
+        './themes/' + themeName);
 })
 
-// getFileHttps('codeload.github.com',
-//     '/redcatH/' + themeRepoName + '/zip/master',
-//     './' + themeName + '.zip',
-//     './' + themeName);
-// https://github.com/redcatH/hexo-theme-polarbear/archive/master.zip
+
+gulp.task('test', (cb) => {
+    // options = {
+    //     hostname: 'codeload.github.com',
+    //     port: 443,
+    //     path: '/redcatH/hexo-theme-polarbear/zip/master',
+    //     method: 'GET'
+    // };
+    getFileHttps('codeload.github.com',
+    '/redcatH/' + themeRepoName + '/zip/master',
+    './' + themeName + '.zip',
+    './themes/' + themeName);
+    cb();
+});
