@@ -12,6 +12,7 @@ before_script:
 script:
   - gulp changetheme
   - hexo generate # generate static files
+  - npm run build
 deploy:
   provider: pages
   skip-cleanup: true
