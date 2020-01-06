@@ -9,7 +9,7 @@ branches:
 #   - npm i -g npm@version-number
 before_script:
   - npm install -g gulp-cli
-  - npm install hexo-renderer-scss --save
+  # - npm install hexo-renderer-scss --save
 script:
   - gulp changetheme
   - npm run build
