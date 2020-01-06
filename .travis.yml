@@ -24,3 +24,4 @@ after_script:
   - git add .
   - git commit -m "update blog"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF_DEST}" master:master
+  - git push --force --quiet "https://${C_USERNAME}:${C_TOKEN}@${C_REF_DEST}" master:master
