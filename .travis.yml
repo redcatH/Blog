@@ -9,10 +9,11 @@ branches:
 #   - npm i -g npm@version-number
 before_script:
   - npm install -g gulp-cli
+  - npm install hexo-renderer-scss --save
 script:
   - gulp changetheme
-  - hexo generate # generate static files
   - npm run build
+  - hexo generate # generate static files
 deploy:
   provider: pages
   skip-cleanup: true
