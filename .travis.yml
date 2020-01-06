@@ -6,8 +6,8 @@ cache: npm
 branches:
   only:
     - master # build master branch only
-before_install:
-  - npm i -g npm@version-number
+# before_install:
+#   - npm i -g npm@version-number
 before_script:
   - npm install -g gulp-cli
 script:
