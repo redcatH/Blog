@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 var gulp = require('gulp');
 var fs = require('fs');
-var git = require('gulp-git');
+// var git = require('gulp-git');
 var runSequence = require('run-sequence');
 var https = require('https');
 var decompress = require('gulp-decompress');
