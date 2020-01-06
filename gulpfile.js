@@ -49,6 +49,7 @@ gulp.task('changetheme', (cb) => {
         '/redcatH/' + themeRepoName + '/zip/master',
         './' + themeName + '.zip',
         './themes/' + themeName);
+        cb();
 })
 
 
