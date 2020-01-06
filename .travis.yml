@@ -9,7 +9,10 @@ branches:
 script:
   - hexo generate # generate static files
 deploy:
-  github-token: $GH_TOKEN
-  type: git
-  repo: https://github.com/redcatH/redcatH.github.io.git
-  branch: master
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
+  local-dir: public
