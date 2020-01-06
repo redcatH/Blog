@@ -15,4 +15,5 @@ deploy:
   keep-history: true
   on:
     branch: master
-  local-dir: public
+  # local-dir: public
+  repo: redcatH/redcatH.github.io.git
